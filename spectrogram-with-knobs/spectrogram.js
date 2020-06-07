@@ -38,7 +38,9 @@ function start(stream) {
 
   var canvas = document.getElementById('spectrogram');
   canvas.width = bufferLength;
+  canvas.style.width = bufferLength + 'px';
   canvas.height = window.innerHeight;
+  canvas.style.height = window.innerHeight + 'px';
   var canvasCtx = canvas.getContext('2d');
 
   function draw() {
@@ -49,7 +51,6 @@ function start(stream) {
       canvas.height + 1
     );
     analyser.getByteFrequencyData(frequencyData);
-    console.log(frequencyData);
 
     var y = canvas.height - 1;
     for (var x = 0; x < bufferLength; x++) {
