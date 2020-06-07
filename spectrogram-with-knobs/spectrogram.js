@@ -1,21 +1,16 @@
-const elKnobs = document.getElementById('knobs');
-const elFftSize = document.getElementById('fftSize');
-const elMinDecibels = document.getElementById('minDecibels');
-const elMaxDecibels = document.getElementById('maxDecibels');
-const elStartButton = document.getElementById('start');
-const elSmoothingTimeConstant = document.getElementById(
-  'smoothingTimeConstant'
-);
+var elKnobs = document.getElementById('knobs');
+var elFftSize = document.getElementById('fftSize');
+var elMinDecibels = document.getElementById('minDecibels');
+var elMaxDecibels = document.getElementById('maxDecibels');
+var elStartButton = document.getElementById('start');
+var elSmoothingTimevarant = document.getElementById('smoothingTimevarant');
 
 elStartButton.onclick = init;
 
 function init() {
-  elStartButton.innerText = '1';
+  console.log('1');
   if (navigator.getUserMedia) {
-    elStartButton.innerText = '2';
-    navigator.getUserMedia({ audio: true }, start, console.log);
-  } else {
-    elStartButton.innerText = '3';
+    console.log('2');
     navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then(start)
@@ -24,31 +19,31 @@ function init() {
 }
 
 function start(stream) {
-  elStartButton.innerText = '4';
-  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  console.log('3');
+  var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-  elStartButton.innerText = 'running';
+  console.log('4');
 
-  const realAudioInput = audioCtx.createMediaStreamSource(stream);
+  var realAudioInput = audioCtx.createMediaStreamSource(stream);
 
-  const analyser = audioCtx.createAnalyser();
+  var analyser = audioCtx.createAnalyser();
   realAudioInput.connect(analyser);
   analyser.fftSize = parseInt(elFftSize.value);
   analyser.minDecibels = parseInt(elMinDecibels.value);
   analyser.maxDecibels = parseInt(elMaxDecibels.value);
-  analyser.smoothingTimeConstant = parseFloat(elSmoothingTimeConstant.value);
+  analyser.smoothingTimevarant = parseFloat(elSmoothingTimevarant.value);
 
-  const bufferLength = analyser.frequencyBinCount;
-  let frequencyData = new Uint8Array(bufferLength);
+  var bufferLength = analyser.frequencyBinCount;
+  var frequencyData = new Uint8Array(bufferLength);
 
-  const canvas = document.getElementById('spectrogram');
+  var canvas = document.getElementById('spectrogram');
   canvas.width = bufferLength;
   canvas.height = window.innerHeight;
 
-  const canvasCtx = canvas.getContext('2d');
+  var canvasCtx = canvas.getContext('2d');
 
   function draw() {
-    let imageData = canvasCtx.getImageData(
+    var imageData = canvasCtx.getImageData(
       0,
       0,
       canvas.width,
@@ -58,7 +53,7 @@ function start(stream) {
 
     var y = canvas.height - 1;
     for (var x = 0; x < bufferLength; x++) {
-      const offset = (y * imageData.width + x) * 4;
+      var offset = (y * imageData.width + x) * 4;
       imageData.data[offset] = 255; // Red
       imageData.data[offset + 1] = 255; // Green
       imageData.data[offset + 2] = 255; // Blue

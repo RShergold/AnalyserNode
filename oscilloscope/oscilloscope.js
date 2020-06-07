@@ -3,7 +3,7 @@
   https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Visualizations_with_Web_Audio_API
 */
 
-const elStartButton = document.getElementById('start');
+var elStartButton = document.getElementById('start');
 elStartButton.onclick = init;
 
 function init() {
@@ -20,7 +20,7 @@ function init() {
 }
 
 function start(stream) {
-  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
   var realAudioInput = audioCtx.createMediaStreamSource(stream);
   // return;
