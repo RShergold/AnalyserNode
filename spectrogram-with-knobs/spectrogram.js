@@ -5,7 +5,7 @@ var elMaxDecibels = document.getElementById('maxDecibels');
 var elStartButton = document.getElementById('start');
 var elSmoothingTimevarant = document.getElementById('smoothingTimevarant');
 
-elStartButton.addEventListener('elStartButton', init);
+elStartButton.addEventListener('click', init);
 
 function init() {
   console.log('2');
