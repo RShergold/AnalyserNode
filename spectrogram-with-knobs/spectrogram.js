@@ -3,7 +3,7 @@ var elFftSize = document.getElementById('fftSize');
 var elMinDecibels = document.getElementById('minDecibels');
 var elMaxDecibels = document.getElementById('maxDecibels');
 var elStartButton = document.getElementById('start');
-var elSmoothingTimevarant = document.getElementById('smoothingTimevarant');
+var elsmoothingTimeConstant = document.getElementById('smoothingTimeConstant');
 
 elStartButton.addEventListener('click', init);
 
@@ -30,7 +30,7 @@ function start(stream) {
   analyser.fftSize = parseInt(elFftSize.value);
   analyser.minDecibels = parseInt(elMinDecibels.value);
   analyser.maxDecibels = parseInt(elMaxDecibels.value);
-  analyser.smoothingTimevarant = parseFloat(elSmoothingTimevarant.value);
+  analyser.smoothingTimeConstant = parseFloat(elsmoothingTimeConstant.value);
   console.log('7');
 
   var bufferLength = analyser.frequencyBinCount;
