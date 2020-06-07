@@ -3,16 +3,16 @@
   https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Visualizations_with_Web_Audio_API
 */
 
-document.body.addEventListener('click', init);
+const startButton = document.getElementById('start');
+startButton.onclick = init;
 
 function init() {
-  document.body.removeEventListener('click', init);
+  startButton.parentElement.removeChild(startButton);
 
   navigator.getUserMedia({ audio: true }, start, console.log);
 }
 
 function start(stream) {
-  console.log(stream);
   var audioCtx = new window.AudioContext();
 
   var realAudioInput = audioCtx.createMediaStreamSource(stream);
@@ -32,19 +32,17 @@ function start(stream) {
 
   // Get a canvas defined with ID "oscilloscope"
   var canvas = document.getElementById('oscilloscope');
-  var canvasCtx = canvas.getContext('2d', { alpha: false });
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+  var canvasCtx = canvas.getContext('2d');
 
   // draw an oscilloscope of the current audio source
 
   function draw() {
-    requestAnimationFrame(draw);
-
-    // canvasCtx.fillStyle = 'rgb(200, 200, 200)';
-    // canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
     canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
 
     canvasCtx.lineWidth = 1;
-    canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
+    canvasCtx.strokeStyle = 'rgb(255, 255, 255)';
 
     canvasCtx.beginPath();
 
@@ -76,13 +74,15 @@ function start(stream) {
     analyser.getByteFrequencyData(frequencyData);
 
     for (var i = 0; i < bufferLength; i++) {
-      barHeight = frequencyData[i] / 2;
+      barHeight = frequencyData[i] * 2;
 
-      canvasCtx.fillStyle = 'rgb(255, 0, 0)';
+      canvasCtx.fillStyle = 'rgb(220, 40, 30)';
       canvasCtx.fillRect(x, canvas.height - barHeight / 2, barWidth, barHeight);
 
       x += barWidth + 1;
     }
+
+    requestAnimationFrame(draw);
   }
 
   draw();

@@ -4,11 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>fft</title>
+  <title>Oscilloscope</title>
   <style>
     body {
       margin: 0;
       overflow: hidden;
+      background-color: #3b4652;
+    }
+
+    button {
+      position: absolute;
     }
 
     canvas {
@@ -19,6 +24,7 @@
 </head>
 
 <body>
+  <button id="start">Start</button>
   <canvas id="oscilloscope"></canvas>
   <script src="./oscilloscope.js"></script>
 </body>

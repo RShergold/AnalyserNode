@@ -4,12 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>spectrogram</title>
+  <title>Spectrogram</title>
   <style>
     body {
       margin: 0;
-      overflow: hidden;
+      overflow-y: hidden;
       background-color: #3b4652;
+    }
+
+    button {
+      position: absolute;
     }
 
     canvas {
@@ -19,6 +23,7 @@
 </head>
 
 <body>
+  <button id="start">Start</button>
   <canvas id="spectrogram"></canvas>
   <script src="./spectrogram.js"></script>
 </body>
