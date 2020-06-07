@@ -1,3 +1,8 @@
+/*
+  Taken from
+  https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Visualizations_with_Web_Audio_API
+*/
+
 document.body.addEventListener('click', init);
 
 function init() {
