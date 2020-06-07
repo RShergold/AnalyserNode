@@ -23,6 +23,8 @@ function init() {
 function start(stream) {
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
+  elStartButton.innerText = 'running';
+
   const realAudioInput = audioCtx.createMediaStreamSource(stream);
 
   const analyser = audioCtx.createAnalyser();
