@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spectrogram</title>
+  <style>
+    body {
+      margin: 0;
+      overflow-y: hidden;
+      background-color: #3b4652;
+      font-family: sans-serif;
+      color: #88919b;
+
+    }
+
+    div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 1rem;
+    }
+
+    canvas {
+      height: 100vh;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="knobs">
+    <label>
+      FFT Size:
+      <select id="fftSize">
+        <option>32</option>
+        <option>64</option>
+        <option>128</option>
+        <option>256</option>
+        <option>512</option>
+        <option>1024</option>
+        <option selected> 2048</option>
+        <option>4096</option>
+        <option>8192</option>
+        <option>16384</option>
+        <option>32768</option>
+      </select>
+    </label>
+    <label>
+      Min Decibels:
+      <span id="minDecibelsValue">-100</span>
+      <input type="range" id="minDecibels" min="-200" max="0" value="-100"
+        onChange="minDecibelsValue.innerText = this.value">
+    </label>
+    <label>
+      Max Decibels:
+      <span id="maxDecibelsValue">-30</span>
+      <input type="range" id="maxDecibels" min="-200" max="0" value="-30"
+        onChange="maxDecibelsValue.innerText = this.value">
+    </label>
+    <label>
+      Smoothing Time Constant:
+      <span id="smoothingTimeConstantValue">0.8</span>
+      <input type="range" id="smoothingTimeConstant" min="0" max="1" value="0.8" step="0.1"
+        onChange="smoothingTimeConstantValue.innerText = this.value">
+    </label>
+    <button id="start">Start</button>
+  </div>
+  <canvas id="spectrogram"></canvas>
+  <script src="./spectrogram.js"></script>
+</body>
+
+</html>
