@@ -10,13 +10,14 @@ const elSmoothingTimeConstant = document.getElementById(
 elStartButton.onclick = init;
 
 function init() {
-  // elKnobs.style.opacity = 0;
-
-  navigator.getUserMedia({ audio: true }, start, console.log);
+  navigator.mediaDevices
+    .getUserMedia({ audio: true })
+    .then(start)
+    .catch(console.log);
 }
 
 function start(stream) {
-  const audioCtx = new window.AudioContext();
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
   const realAudioInput = audioCtx.createMediaStreamSource(stream);
 

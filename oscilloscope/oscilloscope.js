@@ -3,17 +3,20 @@
   https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Visualizations_with_Web_Audio_API
 */
 
-const startButton = document.getElementById('start');
-startButton.onclick = init;
+const elStartButton = document.getElementById('start');
+elStartButton.onclick = init;
 
 function init() {
-  startButton.parentElement.removeChild(startButton);
+  elStartButton.parentElement.removeChild(elStartButton);
 
-  navigator.getUserMedia({ audio: true }, start, console.log);
+  navigator.mediaDevices
+    .getUserMedia({ audio: true })
+    .then(start)
+    .catch(console.log);
 }
 
 function start(stream) {
-  var audioCtx = new window.AudioContext();
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
   var realAudioInput = audioCtx.createMediaStreamSource(stream);
   // return;

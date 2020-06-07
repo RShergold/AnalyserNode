@@ -4,11 +4,14 @@ startButton.onclick = init;
 function init() {
   startButton.parentElement.removeChild(startButton);
 
-  navigator.getUserMedia({ audio: true }, start, console.log);
+  navigator.mediaDevices
+    .getUserMedia({ audio: true })
+    .then(start)
+    .catch(console.log);
 }
 
 function start(stream) {
-  const audioCtx = new window.AudioContext();
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
   const realAudioInput = audioCtx.createMediaStreamSource(stream);
 
