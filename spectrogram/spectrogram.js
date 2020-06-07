@@ -4,10 +4,14 @@ startButton.onclick = init;
 function init() {
   startButton.parentElement.removeChild(startButton);
 
-  navigator.mediaDevices
-    .getUserMedia({ audio: true })
-    .then(start)
-    .catch(console.log);
+  if (navigator.getUserMedia) {
+    navigator.getUserMedia({ audio: true }, start, console.log);
+  } else {
+    navigator.mediaDevices
+      .getUserMedia({ audio: true })
+      .then(start)
+      .catch(console.log);
+  }
 }
 
 function start(stream) {
