@@ -9,21 +9,16 @@ elStartButton.onclick = init;
 function init() {
   elStartButton.parentElement.removeChild(elStartButton);
 
-  if (navigator.getUserMedia) {
-    navigator.getUserMedia({ audio: true }, start, console.log);
-  } else {
-    navigator.mediaDevices
-      .getUserMedia({ audio: true })
-      .then(start)
-      .catch(console.log);
-  }
+  navigator.mediaDevices
+    .getUserMedia({ audio: true })
+    .then(start)
+    .catch(console.log);
 }
 
 function start(stream) {
   var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
   var realAudioInput = audioCtx.createMediaStreamSource(stream);
-  // return;
 
   var analyser = audioCtx.createAnalyser();
   realAudioInput.connect(analyser);

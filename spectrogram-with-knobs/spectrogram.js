@@ -8,14 +8,11 @@ var elSmoothingTimevarant = document.getElementById('smoothingTimevarant');
 elStartButton.onclick = init;
 
 function init() {
-  console.log('1');
-  if (navigator.getUserMedia) {
-    console.log('2');
-    navigator.mediaDevices
-      .getUserMedia({ audio: true })
-      .then(start)
-      .catch(console.log);
-  }
+  console.log('2');
+  navigator.mediaDevices
+    .getUserMedia({ audio: true })
+    .then(start)
+    .catch(console.log);
 }
 
 function start(stream) {
@@ -25,13 +22,16 @@ function start(stream) {
   console.log('4');
 
   var realAudioInput = audioCtx.createMediaStreamSource(stream);
+  console.log('5');
 
   var analyser = audioCtx.createAnalyser();
   realAudioInput.connect(analyser);
+  console.log('6');
   analyser.fftSize = parseInt(elFftSize.value);
   analyser.minDecibels = parseInt(elMinDecibels.value);
   analyser.maxDecibels = parseInt(elMaxDecibels.value);
   analyser.smoothingTimevarant = parseFloat(elSmoothingTimevarant.value);
+  console.log('7');
 
   var bufferLength = analyser.frequencyBinCount;
   var frequencyData = new Uint8Array(bufferLength);
@@ -39,7 +39,6 @@ function start(stream) {
   var canvas = document.getElementById('spectrogram');
   canvas.width = bufferLength;
   canvas.height = window.innerHeight;
-
   var canvasCtx = canvas.getContext('2d');
 
   function draw() {
@@ -50,6 +49,7 @@ function start(stream) {
       canvas.height + 1
     );
     analyser.getByteFrequencyData(frequencyData);
+    console.log(frequencyData);
 
     var y = canvas.height - 1;
     for (var x = 0; x < bufferLength; x++) {
