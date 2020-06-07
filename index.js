@@ -20,24 +20,25 @@ function start(stream) {
 
   analyser.fftSize = 2048;
   var bufferLength = analyser.frequencyBinCount;
-  var dataArray = new Uint8Array(bufferLength);
-  analyser.getByteTimeDomainData(dataArray);
+  var timeDomainData = new Uint8Array(bufferLength);
+  var frequencyData = new Uint8Array(bufferLength);
+  analyser.getByteTimeDomainData(timeDomainData);
+  analyser.getByteFrequencyData(frequencyData);
 
   // Get a canvas defined with ID "oscilloscope"
   var canvas = document.getElementById('oscilloscope');
-  var canvasCtx = canvas.getContext('2d');
+  var canvasCtx = canvas.getContext('2d', { alpha: false });
 
   // draw an oscilloscope of the current audio source
 
   function draw() {
     requestAnimationFrame(draw);
 
-    analyser.getByteTimeDomainData(dataArray);
+    // canvasCtx.fillStyle = 'rgb(200, 200, 200)';
+    // canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+    canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
 
-    canvasCtx.fillStyle = 'rgb(200, 200, 200)';
-    canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
-
-    canvasCtx.lineWidth = 2;
+    canvasCtx.lineWidth = 1;
     canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
 
     canvasCtx.beginPath();
@@ -45,8 +46,10 @@ function start(stream) {
     var sliceWidth = (canvas.width * 1.0) / bufferLength;
     var x = 0;
 
+    analyser.getByteTimeDomainData(timeDomainData);
+
     for (var i = 0; i < bufferLength; i++) {
-      var v = dataArray[i] / 128.0;
+      var v = timeDomainData[i] / 128.0;
       var y = (v * canvas.height) / 2;
 
       if (i === 0) {
@@ -60,6 +63,21 @@ function start(stream) {
 
     canvasCtx.lineTo(canvas.width, canvas.height / 2);
     canvasCtx.stroke();
+
+    //bars
+    var barWidth = (canvas.width / bufferLength) * 2.5;
+    var barHeight;
+    x = 0;
+    analyser.getByteFrequencyData(frequencyData);
+
+    for (var i = 0; i < bufferLength; i++) {
+      barHeight = frequencyData[i] / 2;
+
+      canvasCtx.fillStyle = 'rgb(255, 0, 0)';
+      canvasCtx.fillRect(x, canvas.height - barHeight / 2, barWidth, barHeight);
+
+      x += barWidth + 1;
+    }
   }
 
   draw();
