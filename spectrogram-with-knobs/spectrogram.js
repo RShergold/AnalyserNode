@@ -8,7 +8,6 @@ var elsmoothingTimeConstant = document.getElementById('smoothingTimeConstant');
 elStartButton.addEventListener('click', init);
 
 function init() {
-  console.log('2');
   navigator.mediaDevices
     .getUserMedia({ audio: true })
     .then(start)
@@ -16,22 +15,16 @@ function init() {
 }
 
 function start(stream) {
-  console.log('3');
   var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-  console.log('4');
-
   var realAudioInput = audioCtx.createMediaStreamSource(stream);
-  console.log('5');
 
   var analyser = audioCtx.createAnalyser();
   realAudioInput.connect(analyser);
-  console.log('6');
   analyser.fftSize = parseInt(elFftSize.value);
   analyser.minDecibels = parseInt(elMinDecibels.value);
   analyser.maxDecibels = parseInt(elMaxDecibels.value);
   analyser.smoothingTimeConstant = parseFloat(elsmoothingTimeConstant.value);
-  console.log('7');
 
   var bufferLength = analyser.frequencyBinCount;
   var frequencyData = new Uint8Array(bufferLength);
