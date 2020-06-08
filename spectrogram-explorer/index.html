@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Spectrogram With Knobs</title>
+  <title>Spectrogram Explorer</title>
   <style>
     body {
       margin: 0;
@@ -15,7 +15,7 @@
 
     }
 
-    div {
+    .controls {
       position: absolute;
       top: 0;
       left: 0;
@@ -25,7 +25,7 @@
 </head>
 
 <body>
-  <div id="knobs">
+  <div id="knobs" class="controls">
     <label>
       FFT Size:
       <select id="fftSize">
@@ -44,8 +44,8 @@
     </label>
     <label>
       Min Decibels:
-      <span id="minDecibelsValue">-100</span>
-      <input type="range" id="minDecibels" min="-200" max="0" value="-100"
+      <span id="minDecibelsValue">-50</span>
+      <input type="range" id="minDecibels" min="-200" max="0" value="-50"
         onChange="minDecibelsValue.innerText = this.value">
     </label>
     <label>
@@ -62,7 +62,21 @@
     </label>
     <button id="start">Start</button>
   </div>
-  <canvas id="spectrogram"></canvas>
+  <div id="running" class="controls" style="display:none">
+    <button id="stop">Stop</button>
+  </div>
+  <div id="explorer" class="controls" style="display:none">
+    <label>
+      x:
+      <input type="number" id="panX" min="0" style="width: 4rem">
+    </label>
+    <label>
+      y:
+      <input type="number" id="panY" min="0" style="width: 4rem">
+    </label>
+    <span>Result in console</span>
+  </div>
+  <canvas></canvas>
   <script src="./spectrogram.js"></script>
 </body>
 
