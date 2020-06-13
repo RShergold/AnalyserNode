@@ -9,6 +9,8 @@ var elRunning = document.getElementById('running');
 var elStopButton = document.getElementById('stop');
 
 var elExplorer = document.getElementById('explorer');
+var elYLabel = document.getElementById('yLabel');
+var elExportButton = document.getElementById('export');
 
 elStartButton.addEventListener('click', start);
 
@@ -48,6 +50,7 @@ function init(stream) {
 
   isRunning = true;
   var stoppedImageData;
+  var yLabels = [];
 
   document.getElementById('stop').onclick = function () {
     elRunning.style.display = 'none';
@@ -58,9 +61,17 @@ function init(stream) {
       canvas.width,
       canvas.height
     );
-    document.getElementById('panX').value = Math.floor(canvas.width / 2);
     document.getElementById('panY').value = canvas.height - 50;
     isRunning = false;
+  };
+
+  elYLabel.onkeyup = elYLabel.onchange = function (foo, bar) {
+    var panY = parseInt(document.getElementById('panY').value);
+    yLabels[panY] = elYLabel.value;
+  };
+
+  elExportButton.onclick = function () {
+    console.log('todo');
   };
 
   function draw() {
@@ -94,11 +105,9 @@ function init(stream) {
     canvasCtx.putImageData(imageData, 0, -1);
   }
 
-  var lastPanX = 0;
   var lastPanY = 0;
 
   function renderExplorer() {
-    var panX = parseInt(document.getElementById('panX').value);
     var panY = parseInt(document.getElementById('panY').value);
 
     // Render spectrogram
@@ -108,15 +117,14 @@ function init(stream) {
     canvasCtx.beginPath();
     canvasCtx.moveTo(0, panY);
     canvasCtx.lineTo(canvas.width, panY);
-
-    canvasCtx.moveTo(panX, 0);
-    canvasCtx.lineTo(panX, canvas.height);
     canvasCtx.strokeStyle = '#dc281e';
     canvasCtx.stroke();
 
-    if (lastPanY != panY || lastPanX != panX) {
+    if (lastPanY != panY) {
       lastPanY = panY;
-      lastPanX = panX;
+
+      // show row label
+      elYLabel.value = yLabels[panY] || '';
 
       // Get values for row
       var rowStart = panY * stoppedImageData.width * 4;
@@ -141,8 +149,7 @@ function init(stream) {
 
       console.clear();
       console.log(row);
-      console.log('x value:', row[panX]);
-      console.log(JSON.stringify(sortedRow.slice(0, 10), null, 2));
+      console.log(JSON.stringify(sortedRow.slice(0, 4), null, 2));
     }
   }
 

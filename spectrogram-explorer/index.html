@@ -12,7 +12,6 @@
       background-color: #3b4652;
       font-family: sans-serif;
       color: #88919b;
-
     }
 
     .controls {
@@ -67,14 +66,14 @@
   </div>
   <div id="explorer" class="controls" style="display:none">
     <label>
-      x:
-      <input type="number" id="panX" min="0" style="width: 4rem">
-    </label>
-    <label>
       y:
       <input type="number" id="panY" min="0" style="width: 4rem">
     </label>
-    <span>Result in console</span>
+    <label>
+      label:
+      <input id="yLabel">
+    </label>
+    <button id="export">Export to csv</button>
   </div>
   <canvas></canvas>
   <script src="./spectrogram.js"></script>

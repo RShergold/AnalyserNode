@@ -5,28 +5,128 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AnalyserNode</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 3rem 0;
+      background-color: #3b4652;
+      font-family: sans-serif;
+    }
+
+    h1 {
+      color: white;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    ol {
+      max-width: 80rem;
+      margin: auto;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    li {
+      flex: 1 0 calc(100% - 1rem);
+      list-style: none;
+    }
+
+    @media (min-width: 750px) {
+      li {
+        flex: 1 1 calc(50% - 1rem);
+      }
+    }
+
+    a {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      background-color: white;
+      margin: 0.5rem;
+      border: 1px solid white;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    a:active {
+      background-color: lightgray;
+      border-color: lightgray;
+    }
+
+    h2 {
+      margin: 1rem 1rem 0 1rem;
+      color: black;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    p {
+      margin: 1rem;
+      color: #88919b;
+    }
+
+    code {
+      background-color: #3b4752;
+      color: white;
+      padding: 0 0.25rem;
+      border-radius: 2px;
+    }
+  </style>
 </head>
 
 <body>
+  <h1>AnalyserNode examples</h1>
   <ol>
     <li>
       <a href="./oscilloscope/">
-        Oscilloscope
+        <img src="./oscilloscope/screenshot.png"
+          srcset="./oscilloscope/screenshot.png, ./oscilloscope/screenshot.x2.png x2">
+        <h2>Oscilloscope</h2>
+        <p>
+          Taken directly from developer.mozilla.org "Visualizations with Web Audio API" article. Uses
+          <code>.getByteTimeDomainData()</code> to generate the waveform and <code>.getByteFrequencyData()</code>
+          to generate the frequency bar chart.
+        </p>
       </a>
     </li>
     <li>
       <a href="./spectrogram/">
-        Spectrogram
+        <img src="./spectrogram/screenshot.png"
+          srcset="./spectrogram/screenshot.png, ./spectrogram/screenshot.x2.png x2">
+        <h2>Spectrogram</h2>
+        <p>
+          A very basic spectrogram. Each row is one frame output of <code>.getByteFrequencyData()</code>.
+        </p>
       </a>
     </li>
     <li>
       <a href="./spectrogram-with-knobs/">
-        Spectrogram with knobs
+        <img src="./spectrogram-with-knobs/screenshot.png"
+          srcset="./spectrogram-with-knobs/screenshot.png, ./spectrogram-with-knobs/screenshot.x2.png x2">
+        <h2>Spectrogram with knobs</h2>
+        <p>
+          A spectrogram with the four configurable properties of AnalyserNode exposed in the GUI. A good way to play
+          with <code>.fftSize</code> <code>.minDecibels</code> <code>.maxDecibels</code> and
+          <code>.smoothingTimeConstant</code> to get a feel for
+          what they do.
+        </p>
       </a>
     </li>
     <li>
       <a href="./spectrogram-explorer/">
-        Spectrogram Explorer
+        <img src="./spectrogram-explorer/screenshot.png"
+          srcset="./spectrogram-explorer/screenshot.png, ./spectrogram-explorer/screenshot.x2.png x2">
+        <h2>Spectrogram Explorer</h2>
+        <p>
+          This little tool allows you to stop the spectrogram. You can then navigate row by row - adding labels to any
+          interesting rows. Values are viewable in the browser console or can be exported to a csv file.
+        </p>
       </a>
     </li>
   </ol>

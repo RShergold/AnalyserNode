@@ -17,7 +17,7 @@ function start(stream) {
 
   var analyser = audioCtx.createAnalyser();
   realAudioInput.connect(analyser);
-  analyser.fftSize = 2048;
+  analyser.fftSize = 8192;
 
   var bufferLength = analyser.frequencyBinCount;
   var frequencyData = new Uint8Array(bufferLength);
