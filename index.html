@@ -5,6 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AnalyserNode</title>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-38971889-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-38971889-1');
+  </script>
+
   <style>
     * {
       box-sizing: border-box;
@@ -19,7 +29,15 @@
     h1 {
       color: white;
       text-align: center;
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
+    }
+
+    header {
+      color: white;
+      text-align: center;
+      margin: 0 auto 3rem auto;
+      max-width: 44rem;
+      font-size: 1.25rem;
     }
 
     ol {
@@ -82,6 +100,10 @@
 
 <body>
   <h1>AnalyserNode examples</h1>
+  <header>
+    A small collection of experiments with the AnalyserNode in the Web Audio Api. All code available at
+    https://github.com/RShergold/AnalyserNode
+  </header>
   <ol>
     <li>
       <a href="./oscilloscope/">
