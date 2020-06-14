@@ -40,28 +40,36 @@
       font-size: 1.25rem;
     }
 
+    header a {
+      color: white;
+    }
+
     ol {
       max-width: 80rem;
       margin: auto;
       padding: 0;
-      display: flex;
-      flex-wrap: wrap;
     }
 
     li {
-      flex: 1 0 calc(100% - 1rem);
       list-style: none;
     }
 
     @media (min-width: 750px) {
+      ol {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
       li {
-        flex: 1 1 calc(50% - 1rem);
+        display: flex;
+        width: 50%;
       }
     }
 
-    a {
+    li a {
       display: flex;
       flex-direction: column;
+      flex: 1 1 auto;
       text-decoration: none;
       background-color: white;
       margin: 0.5rem;
@@ -70,7 +78,7 @@
       overflow: hidden;
     }
 
-    a:active {
+    li a:active {
       background-color: lightgray;
       border-color: lightgray;
     }
@@ -101,8 +109,8 @@
 <body>
   <h1>AnalyserNode examples</h1>
   <header>
-    A small collection of experiments with the AnalyserNode in the Web Audio Api. All code available at
-    https://github.com/RShergold/AnalyserNode
+    A small collection of experiments with the AnalyserNode in the Web Audio Api. All code available on
+    <a href="https://github.com/RShergold/AnalyserNode">GitHub</a>
   </header>
   <ol>
     <li>
