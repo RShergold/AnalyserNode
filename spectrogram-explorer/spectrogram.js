@@ -71,7 +71,24 @@ function init(stream) {
   };
 
   elExportButton.onclick = function () {
-    console.log('todo');
+    if (stoppedImageData) {
+      var csvContent = stoppedImageData.data.reduce(function (
+        previousValue,
+        value,
+        index
+      ) {
+        if (index % (stoppedImageData.width * 4) === 0) {
+          previousValue += '\n' + (yLabels[index] || ' ');
+        }
+        if (index % 4 === 3) {
+          previousValue += ',' + value;
+        }
+        return previousValue;
+      },
+      'data:text/csv;charset=utf-8,');
+
+      window.open(encodeURI(csvContent));
+    }
   };
 
   function draw() {
