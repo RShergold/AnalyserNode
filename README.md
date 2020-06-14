@@ -1,6 +1,8 @@
 # AnalyserNode
 
-AnalyserNode examples
+A small collection of experiments with the AnalyserNode in the Web Audio Api.
+
+[view the live demo here](https://remi-shergold.com/AnalyserNode/)
 
 ## Oscilloscope
 
