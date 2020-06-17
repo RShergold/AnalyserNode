@@ -27,3 +27,15 @@ A spectrogram with the four configurable properties of AnalyserNode exposed in t
 ![Spectrogram Explorer](./spectrogram-explorer/screenshot.png)
 
 This little tool allows you to stop the spectrogram. You can then navigate row by row - adding labels to any interesting rows. Values are viewable in the browser console or can be exported to a csv file.
+
+## Harmonic Product Spectrum
+
+![Harmonic Product Spectrum](./harmonic-product-spectrum/screenshot.png)
+
+Harmonic Product Spectrum is the simplest real time pitch detection algorithm. We take the initial FFT from`.getByteFrequencyData()`</code>` and then downsample it multiple times. The initial FFT and thedownsamples are multiplied together to create the Harmonic Product Spectrum. The detected pitch is the highestpeak of the Harmonic Product Spectrum.
+
+## Pitch
+
+![Pitch](./pitch/screenshot.png)
+
+Harmonic Product Spectrum mapped to piano keys.
