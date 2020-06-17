@@ -2,20 +2,29 @@ var elStartButton = document.getElementById('start');
 elStartButton.onclick = start;
 
 function start() {
+  elStartButton.parentElement.removeChild(elStartButton);
+
   navigator.mediaDevices
     .getUserMedia({ audio: true })
     .then(main)
     .catch(console.log);
 }
 
+function downsample(samples, ratio) {
+  return samples.filter(function (_, index) {
+    return (index + 1) % ratio === 0;
+  });
+}
+
 function main(stream) {
-  var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  var audioCtx = new window.AudioContext();
 
   var realAudioInput = audioCtx.createMediaStreamSource(stream);
 
   var analyser = audioCtx.createAnalyser();
   realAudioInput.connect(analyser);
-  analyser.fftSize = 512;
+  analyser.fftSize = 1024; // 2048;
+  analyser.minDecibels = -75;
 
   var bufferLength = analyser.frequencyBinCount;
   var frequencyData = new Uint8Array(bufferLength);
@@ -25,60 +34,29 @@ function main(stream) {
   canvas.height = window.innerHeight;
   var canvasCtx = canvas.getContext('2d');
 
-  //           c4  d4  e4  f4  g4  a4
-  // var notes = [20, 19, 21, 11, 21, 5];
-  var notes = [
-    [14, 20], //[20, 19, 23, 14], // c4
-    [3, 4, 19, 2], // d4
-    [4, 3, 18, 17], // e4
-    [23, 22, 19, 4], // f4
-    [4, 5, 21, 3], // g4
-    [5, 4, 6, 19], // a4
-    [5, 27, 26, 6], // b4
-    [6, 23, 5, 22], // c5
-  ];
   var whiteKeyColor = '#9ea3a8'; // White
+  var threshold = Math.pow(128, 5) / 4; // This is basically arbitrary
+  var keys = [5, 9999, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 
   function draw() {
     analyser.getByteFrequencyData(frequencyData);
 
-    // var highestIndex = frequencyData.reduce(function (indexMax, value, index) {
-    //   if (value > frequencyData[indexMax]) {
-    //     return index;
-    //   }
-    //   return indexMax;
-    // }, 0);
-    var sortedFrequencyData = Array.from(frequencyData)
-      .map(function (value, index) {
-        return {
-          value: value,
-          index: index,
-        };
-      })
-      .sort(function (a, b) {
-        return b.value - a.value;
-      });
+    var sample2 = downsample(frequencyData, 2); // Half
+    var sample3 = downsample(frequencyData, 3); // Third
+    var sample4 = downsample(frequencyData, 4); // Quarter
+    var sample5 = downsample(frequencyData, 5); // Fifth
 
-    var foundIndex = notes.findIndex(function (note) {
-      return (
-        note.includes(sortedFrequencyData[0].index) &&
-        note.includes(sortedFrequencyData[1].index) &&
-        note.includes(sortedFrequencyData[2].index) &&
-        note.includes(sortedFrequencyData[3].index)
-      );
-    });
-    var activeKey = foundIndex == -1 ? undefined : foundIndex;
+    var hps = [];
+    for (var i = 0; i < sample5.length; i++) {
+      hps[i] =
+        frequencyData[i] * sample2[i] * sample3[i] * sample4[i] * sample5[i];
+    }
+    var highestIndex = hps.indexOf(Math.max.apply(Math, hps));
+    var activeKey = undefined;
 
-    // var activeKey = undefined;
-    // var magnitude = undefined;
-    // if (activeNote) {
-    //   activeKey = activeNote.index;
-    //   // activeKey = notes.indexOf(highestIndex);
-    //   // magnitude = frequencyData[highestIndex];
-    //   // console.log(activeKey);
-    //   // console.log(magnitude);
-    // }
-    console.log(activeKey);
+    if (hps[highestIndex] > threshold) {
+      activeKey = keys.indexOf(highestIndex);
+    }
 
     shiftSpectrogram(activeKey, 255);
     drawPiano(activeKey);

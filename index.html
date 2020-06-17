@@ -90,6 +90,8 @@
 
     img {
       width: 100%;
+      height: auto;
+      background-color: #3b4652;
     }
 
     p {
@@ -116,7 +118,7 @@
     <li>
       <a href="./oscilloscope/">
         <img src="./oscilloscope/screenshot.png"
-          srcset="./oscilloscope/screenshot.png, ./oscilloscope/screenshot.x2.png 2x">
+          srcset="./oscilloscope/screenshot.png, ./oscilloscope/screenshot.x2.png 2x" width="622" height="311">
         <h2>Oscilloscope</h2>
         <p>
           Taken directly from developer.mozilla.org "Visualizations with Web Audio API" article. Uses
@@ -128,7 +130,7 @@
     <li>
       <a href="./spectrogram/">
         <img src="./spectrogram/screenshot.png"
-          srcset="./spectrogram/screenshot.png, ./spectrogram/screenshot.x2.png 2x">
+          srcset="./spectrogram/screenshot.png, ./spectrogram/screenshot.x2.png 2x" width="622" height="311">
         <h2>Spectrogram</h2>
         <p>
           A very basic spectrogram. Each row is one frame output of <code>.getByteFrequencyData()</code>.
@@ -138,7 +140,8 @@
     <li>
       <a href="./spectrogram-with-knobs/">
         <img src="./spectrogram-with-knobs/screenshot.png"
-          srcset="./spectrogram-with-knobs/screenshot.png, ./spectrogram-with-knobs/screenshot.x2.png 2x">
+          srcset="./spectrogram-with-knobs/screenshot.png, ./spectrogram-with-knobs/screenshot.x2.png 2x" width="622"
+          height="311">
         <h2>Spectrogram with knobs</h2>
         <p>
           A spectrogram with the four configurable properties of AnalyserNode exposed in the GUI. A good way to play
@@ -151,11 +154,36 @@
     <li>
       <a href="./spectrogram-explorer/">
         <img src="./spectrogram-explorer/screenshot.png"
-          srcset="./spectrogram-explorer/screenshot.png, ./spectrogram-explorer/screenshot.x2.png 2x">
+          srcset="./spectrogram-explorer/screenshot.png, ./spectrogram-explorer/screenshot.x2.png 2x" width="622"
+          height="311">
         <h2>Spectrogram Explorer</h2>
         <p>
           This little tool allows you to stop the spectrogram. You can then navigate row by row - adding labels to any
           interesting rows. Values are viewable in the browser console or can be exported to a csv file.
+        </p>
+      </a>
+    </li>
+    <li>
+      <a href="./harmonic-product-spectrum/">
+        <img src="./harmonic-product-spectrum/screenshot.png"
+          srcset="./harmonic-product-spectrum/screenshot.png, ./harmonic-product-spectrum/screenshot.x2.png 2x"
+          width="622" height="311">
+        <h2>Harmonic Product Spectrum</h2>
+        <p>
+          Harmonic Product Spectrum is the simplest real time pitch detection algorithm. We take the initial FFT from
+          <code>.getByteFrequencyData()</code> and then downsample it multiple times. The initial FFT and the
+          downsamples are multiplied together to create the Harmonic Product Spectrum. The detected pitch is the highest
+          peak of the Harmonic Product Spectrum.
+        </p>
+      </a>
+    </li>
+    <li>
+      <a href="./pitch/">
+        <img src="./pitch/screenshot.png" srcset="./pitch/screenshot.png, ./pitch/screenshot.x2.png 2x" width="622"
+          height="311">
+        <h2>Pitch</h2>
+        <p>
+          Harmonic Product Spectrum mapped to piano keys.
         </p>
       </a>
     </li>
