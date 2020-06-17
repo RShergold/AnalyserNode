@@ -55,7 +55,8 @@ function main(stream) {
     var activeKey = undefined;
 
     if (hps[highestIndex] > threshold) {
-      activeKey = keys.indexOf(highestIndex);
+      var keyIndex = keys.indexOf(highestIndex);
+      activeKey = keyIndex === -1 ? undefined : keyIndex;
     }
 
     shiftSpectrogram(activeKey, 255);
